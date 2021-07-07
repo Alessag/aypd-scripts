@@ -5,7 +5,8 @@ head(gapminder)
 # Guardamos una busqueda filtrada por anio 2007 en una variable llamada gap_07
 gap_07 <-filter(gapminder, year== 2007)
 
-
+# Con este %in% podemos filtrar las busquedas para que contengan lo que esta en parentesis que vendria siendo que tenga como pais a Francia y Turkey
+gap_fr_tk <- filter(gapminder, country %in% c("France", "Turkey"))
 
 
 
