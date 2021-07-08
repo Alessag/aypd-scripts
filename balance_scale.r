@@ -7,7 +7,7 @@ library(gapminder)
 ruta_csv <- file.choose()
 
 # Importar datos con gapminder y le asignamos un titulo a cada columna
-dataBalance <- read.csv(ruta_csv,
+dataBalloons <- read.csv(ruta_csv,
                         col.names = c('color',
                                       'size',
                                       'act',
@@ -16,18 +16,18 @@ dataBalance <- read.csv(ruta_csv,
 
 # DESCRIPCIÓN Y EXPORACIÓN DE LOS DATOS
 # VARIABLES: 
-# Color: 
-# Size 
-# Act 
-# Age 
-# Inflated
+# Color: yellow, purple
+# Size: large, small
+# Act: stretch, dip
+# Age: adult, child
+# Inflated: T, F
 
 # Mirar datos 
-head(dataBalance)
+head(dataBalloons)
 
 #Generando la tabla agrupada
-table(dataBalance$color)
+table(dataBalloons$inflated)
 
-#Graficar de barras basicas
-barplot(table(dataBalance$size))
+#Graficamos en un diagrama de barras basicas 
+barplot(table(dataBalloons$inflated))
 
