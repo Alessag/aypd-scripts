@@ -2,7 +2,7 @@
 #### TEMA 1. Introducción al procesamiento de datos
 #### EXPLORACION Y DESCRIPCION DE DATOS CUANTITATIVOS
 
-#### REALIZADO POR: Alessandra Amicarella Girardi, V-26.209731
+#### REALIZADO POR: Alessandra Amicarella Girardi, V-26.209.731
 
 #### ---------------------------------------------------------------------------
 #### ---------------------------------------------------------------------------
@@ -32,7 +32,8 @@ library(readr)
 # Buscar la ruta del archivo y la guardarmos en una variable
 ruta_csv <- file.choose()
 
-# Importamos los datos y le asignamos un titulo a cada columna
+# Importamos y leemos los datos, le asignamos un titulo a cada columna
+# y los guardamos en una variable llamada dataHabermarn
 dataHabermarn <- read.csv(ruta_csv,
                         col.names = c('age_at_time_operation',
                                       'age_of_operation',
