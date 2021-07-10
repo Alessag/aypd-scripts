@@ -1,6 +1,19 @@
-# Load packages
+#### ---------------------------------------------------------------------------
+#### TEMA 2. Introduccion al procesamiento de datos univariantes y multivariantes
+#### EXPLORACION Y DESCRIPCION DE DATOS CUANTITATIVOS
+
+#### REALIZADO POR: Alessandra Amicarella Girardi
+
+#### ---------------------------------------------------------------------------
+#### ---------------------------------------------------------------------------
+
+####                  CARGA DE PAQUETES
+
 library(readr)
 library(gapminder)
+
+#### ---------------------------------------------------------------------------
+#### ---------------------------------------------------------------------------
 
 
 # Buscar la ruta del archivo y guardarla en una variables
