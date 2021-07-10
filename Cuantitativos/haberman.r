@@ -1,8 +1,8 @@
 #### ---------------------------------------------------------------------------
-#### TEMA 2. Introduccion al procesamiento de datos univariantes y multivariantes
+#### TEMA 1. Introducción al procesamiento de datos
 #### EXPLORACION Y DESCRIPCION DE DATOS CUANTITATIVOS
 
-#### REALIZADO POR: Alessandra Amicarella Girardi
+#### REALIZADO POR: Alessandra Amicarella Girardi, V-26.209731
 
 #### ---------------------------------------------------------------------------
 #### ---------------------------------------------------------------------------
@@ -10,16 +10,29 @@
 ####                  CARGA DE PAQUETES
 
 library(readr)
-library(gapminder)
 
 #### ---------------------------------------------------------------------------
 #### ---------------------------------------------------------------------------
 
+# Lectura de datos: Archivo haberman.data
+# La primera fila no contiene los nombres de las columnas
+# Los datos estan separados por ,
+# La primera columna identifica a las filas
+# El archivo contiene 306 filas
+# Las variables contienen informacion la supervivencia de pacientes con cancer 
+# de mama que han sido operadas ente los anos 1958 y 1970
+# Las variables registradas fueron: 
+# Edad de la paciente al momento de la operacion (numerica)
+# Año de la operacion de la paciente (año - 1900, numerica)
+# Número de ganglios axilares positivos detectados (numerica)
+# Status de supervivencia (Atributo de clase)
+# -- 1 = La paciente sobrevivió 5 años o más
+# -- 2 = La paciente falleció en un plazo de 5 años
 
-# Buscar la ruta del archivo y guardarla en una variables
+# Buscar la ruta del archivo y la guardarmos en una variable
 ruta_csv <- file.choose()
 
-# Importar datos con gapminder y le asignamos un titulo a cada columna
+# Importamos los datos y le asignamos un titulo a cada columna
 dataHabermarn <- read.csv(ruta_csv,
                         col.names = c('age_at_time_operation',
                                       'age_of_operation',
@@ -27,25 +40,13 @@ dataHabermarn <- read.csv(ruta_csv,
                                       'survival_status')
                         )
 
-# DESCRIPCIÓN Y EXPORACIÓN DE LOS DATOS
-# VARIABLES: 
-# Age of patient at time of operation (numerical)
-# Patient's year of operation (year - 1900, numerical)
-# Number of positive axillary nodes detected (numerical)
-# Survival status (class attribute)
-# -- 1 = the patient survived 5 years or longer
-# -- 2 = the patient died within 5 year
-
-# Mirar datos 
-# head(dataHabermarn)
-
-#Generando la tabla agrupada
+#Generamos el histograma para la variable: Edad al momento de la operacion
 hist(dataHabermarn$age_at_time_operation,
       col = blues9,
      main = "Histogram",
      xlab = "Age of the patient at the time of operation"
      )
 
-# Podemos observar en el histograma que la edad de los 
-# pacientes al momento de la operacion es entre los 50-55 años de edad
+# Podemos observar en el histograma que la edad de las pacientes 
+# al momento de la operacion es entre los 50-55 años de edad
 
