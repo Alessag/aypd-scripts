@@ -84,7 +84,9 @@ boxplot.stats(dataCaesarian$delivery_number)
 # confiaza a un 95% y $out nos muestra los valores de los outliers que se pueden ver en el grafico
 
 # Prueba de homogeniedad de varianza 
-# bartlett.test(dataCaesarian.age,data=dataCaesarian)
-
+# vec_age <- data.frame(dataCaesarian$age)
+# View(vec_age)
+# bartlett.test(vec_age,data=dataCaesarian)
+datos <- c(dataCaesarian$age)
 
 
