@@ -27,6 +27,7 @@ library(gapminder)
 # Hora de parto: { 0,1,2 } -> {0 = oportuna , 1 = prematura , 2 = tardia}
 # Presion arterial: { 2,1,0 } -> {0 = bajo , 1 = normal , 2 = alto }
 # Estado del corazon: { 1,0 } -> {0 = apto, 1 = inepto }
+# Cesárea: { 0,1 } -> {0 = No, 1 = Si }
 
 
 # Buscamos la ruta del archivo y la guardamos en una variable
