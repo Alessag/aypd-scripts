@@ -50,33 +50,41 @@ head(dataCaesarian)
 # Hacemos una copia de la data original 
 dataCaesarian2 <- dataCaesarian
 
-# Vamos a reemplazar los valores perdidos de la columna age, delivery_number con la mediana
+# Vamos a reemplazar los valores perdidos de la columna age con la mediana
 dataCaesarian2$age_new <- ifelse(is.na(dataCaesarian2$age), 
                                              median(dataCaesarian2$age, na.rm = TRUE),
                                              dataCaesarian2$age
 )
+
 # Miramos los datos 
 head(dataCaesarian2)
 
-# Vamos a reemplazar los valores perdidos de la columna blood pleasure con la media
-dataCaesarian3$blood_preassure_new <- ifelse(is.na(dataCaesarian3$blood_preassure), 
-                                             mean(dataCaesarian3$blood_preassure, na.rm = TRUE),
-                                             dataCaesarian3$blood_preassure
-                                             )
-# Miramos los datos 
-head(dataCaesarian3)
+# Podemos observar que hemos creado una nueva columna llamada 
+# age_new y en esta los valores NA de la columna original han sido reemplazados
+# por la media para cada uno de ellos
+
+
+# Imputacion de datos
+
+# Vamos a graficar la columna de numero de parto en un histograma
+# para saber como estan distribuidos los valores
+hist(dataCaesarian$delivery_number)
+
+# Luego vamos a hacer un grafico de caja y bigotes para ver los outliers
+boxplot(dataCaesarian$delivery_number, horizontal = TRUE)
+
+# Obtenemos la lista de valores outliers
+boxplot.stats(dataCaesarian$delivery_number)
+
+# Revisando los resultados obtenidos podemos ver que el primer resultado 
+# devuelto por la funcion($stats) nos esta diciendo que el bigote inferior
+# el limitie inferior de la caja y la mediana del conjunto de 
+# valores se encuentran en 1, la parte superior de la caja se encuentra en 2
+# $n nos dice la cantidad de datos que hay, $conf nos muestra los intervalos de 
+# confiaza a un 95% y $out nos muestra los valores de los outliers que se pueden ver en el grafico
 
 # Prueba de homogeniedad de varianza 
 # bartlett.test(dataCaesarian.age,data=dataCaesarian)
 
 
-
-#Generamos la tabla agrupada para la variable: Inflados
-table(dataCaesarian$inflated)
-
-#Graficamos en un diagrama de barras basicas 
-barplot(table(dataCaesarian$inflated))
-
-# Lo que podemos observar en el grafico es que hay 
-# mayor cantidad de globos desinflados que inflados
 
