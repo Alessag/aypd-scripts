@@ -46,6 +46,31 @@ dataCaesarian <- read.csv(ruta_csv,
 # Miramos los datos 
 head(dataCaesarian)
 
+# Procesamiento de datos faltantes
+# Hacemos una copia de la data original 
+dataCaesarian2 <- dataCaesarian
+
+# Vamos a reemplazar los valores perdidos de la columna age, delivery_number con la mediana
+dataCaesarian2$age_new <- ifelse(is.na(dataCaesarian2$age), 
+                                             median(dataCaesarian2$age, na.rm = TRUE),
+                                             dataCaesarian2$age
+)
+# Miramos los datos 
+head(dataCaesarian2)
+
+# Vamos a reemplazar los valores perdidos de la columna blood pleasure con la media
+dataCaesarian3$blood_preassure_new <- ifelse(is.na(dataCaesarian3$blood_preassure), 
+                                             mean(dataCaesarian3$blood_preassure, na.rm = TRUE),
+                                             dataCaesarian3$blood_preassure
+                                             )
+# Miramos los datos 
+head(dataCaesarian3)
+
+# Prueba de homogeniedad de varianza 
+# bartlett.test(dataCaesarian.age,data=dataCaesarian)
+
+
+
 #Generamos la tabla agrupada para la variable: Inflados
 table(dataCaesarian$inflated)
 
