@@ -1,6 +1,6 @@
 #### ---------------------------------------------------------------------------
-#### TEMA 1. Introducción al procesamiento de datos
-#### EXPLORACION Y DESCRIPCION DE DATOS CUANTITATIVOS
+#### TEMA Introduccion al procesamiento de datos univariantes y multivariantes
+#### EXPLORACION, DESCRIPCION Y DESCOMPOSICION DE DATOS UNIVARIANTES
 
 #### REALIZADO POR: Alessandra Amicarella Girardi, V-26.209.731
 
@@ -15,18 +15,17 @@ library(gapminder)
 #### ---------------------------------------------------------------------------
 #### ---------------------------------------------------------------------------
 
-# Lectura de datos: Archivo adult+stretch.data
-# La primera fila no contiene los nombres de las columnas
-# Los datos estan separados por ,
-# La primera columna identifica a las filas
-# El archivo contiene 20 filas
-# Las variables contienen informacion de globos estirados
+# Lectura de datos: Archivo dataset.csv
+# La primera fila contiene los nombres de las columnas
+# Los datos estan separados por columnas
+# La primera columna identifica a la variable SystemCodeNumber
+# El archivo contiene 35717 filas
+# Las variables contienen informacion sobre la tasa de ocupacion de los aparcamientos
+# de Birmingham entre las 8:00 a las 16:30 del 2016/10/04 al 2016/12/19
 # Las variables registradas fueron: 
-# Color: Amaraillo, purpura
-# Size: Grande, pequeño
-# Act: Estirar, sumergir
-# Age: Adulto, niño
-# Inflated: Verdadero, falso
+# Numero de codigo del sistema: ID del aparcamiento 
+# Capacidad: Capacidad del aparcamiento
+# Ocupacion: Grado de ocupacion del aparacamiento
 
 
 # Buscamos la ruta del archivo y la guardamos en una variable
