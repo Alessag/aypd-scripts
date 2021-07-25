@@ -15,6 +15,7 @@ library(ggplot2)
 library(forecast)
 library(dplyr)
 library(colortools)
+library(tseries)
 
 #### ---------------------------------------------------------------------------
 #### ---------------------------------------------------------------------------
@@ -80,10 +81,12 @@ data_ts
 data_stl <- stl(data_ts, s.window = "period")
 
 # Generamos las graficas
-plot(data_stl)  # top=original data, second=estimated seasonal, third=estimated smooth trend, bottom=estimated irregular element i.e. unaccounted for variation
-monthplot(data_stl)  # variation in milk production for each month
+plot(data_stl) 
+monthplot(data_stl)
 #seasonplot(data_stl)
 
+# Estacionaridad 
 
+acf(data_ts)
 
 
