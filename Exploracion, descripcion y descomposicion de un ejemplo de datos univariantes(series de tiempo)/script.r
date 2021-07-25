@@ -20,35 +20,32 @@ library(readxl)
 
 #### ---------------------------------------------------------------------------
 #### ---------------------------------------------------------------------------
-
-# Lectura de datos: Archivo day.csv
+# Lectura de datos. Archivo AirQualityUCI.xlsx
 # La primera fila contiene los nombres de las columnas
 # Los datos estan separados por columnas
-# La primera columna identifica el indice de los registros
-# El archivo contiene 17389 filas
-# Las variables contienen informacion sobre el alquiler de bicicletas
-# instant: índice de registros
-# dteday : fecha
-# season : estación (1:invierno, 2:primavera, 3:verano, 4:otoño)
-# yr : año (0: 2011, 1:2012)
-# mnth : mes ( 1 a 12)
-# hr : hora (0 a 23)
-# holiday : si el día es festivo o no (extraído de [Web Link])
-# weekday : día de la semana
-# workingday : si el día no es ni fin de semana ni festivo es 1, en caso contrario es 0.
-# weathersit :
-#   1: Despejado, Pocas nubes, Parcialmente nublado, Parcialmente nublado
-#   2: Niebla + Nublado, Niebla + Nubes dispersas, Niebla + Pocas nubes, Niebla
-#   3: Nieve ligera, Lluvia ligera + Tormenta + Nubes dispersas, Lluvia ligera + Nubes dispersas
-#   4: Lluvia intensa + Paletas de hielo + Tormenta eléctrica + Nieve, Nieve + Niebla
-# temp : Temperatura normalizada en Celsius. Los valores se obtienen mediante (t-t_min)/(t_max-t_min), t_min=-8, t_max=+39 (sólo en escala horaria)
-# atemp: Temperatura de sensación normalizada en Celsius. Los valores se obtienen mediante (t-t_min)/(t_max-t_min), t_min=-16, t_max=+50 (sólo en escala horaria)
-# hum: Humedad normalizada. Los valores se dividen entre 100 (máximo)
-# windspeed: Velocidad del viento normalizada. Los valores se dividen entre 67 (máx.)
-# casual: recuento de usuarios ocasionales
-# registered: recuento de usuarios registrados
-# cnt: recuento del total de bicicletas de alquiler, incluyendo las casuales y las registradas
-
+# La primera columna identifica las fechas de los datos
+# El archivo contiene 9358 filas
+# Las variables contienen informacion sobre la respuestas promediado por hora 
+# de un conjunto de 5 sensores químicos de óxido metálico integrados en un 
+# dispositivo multisensor químico de calidad del aire. 
+# Las variables registradas fueron: 
+# Date: Fecha (DD/MM/AAAA)
+# Time: Hora (HH.MM.SS)
+# CO(GT): Concentración media horaria real de CO en mg/m^3 (analizador de referencia)
+# PT08.S1(CO): Respuesta media horaria del sensor PT08.S1 (óxido de estaño) (nominalmente orientado al CO)
+# NMHC(GT): Promedio horario real de la concentración global de hidrocarburos no metánicos en microg/m^3 (analizador de referencia)
+# C6H6(GT): Concentración de benceno de media horaria real en microg/m^3 (analizador de referencia)
+# PT08.S2(NMHC):  Respuesta media horaria del sensor PT08.S2 (titanio) (objetivo nominal de NMHC)
+# NOx(GT): Concentración de NOx de media horaria real en ppb (analizador de referencia)
+# PT08.S3(NOx): PT08.S3 (óxido de tungsteno) respuesta media horaria del sensor (objetivo nominal de NOx)
+# NO2(GT): Concentración de NO2 real media horaria en microg/m^3 (analizador de referencia)
+# PT08.S4(NO2):  PT08.S4 (óxido de tungsteno) respuesta media horaria del sensor (objetivo nominal de NO2)
+# PT08.S5(O3):  PT08.S5 (óxido de indio) respuesta media horaria del sensor (objetivo nominal de O3)
+# T: Temperatura en Â°C
+# AH: Humedad relativa (%)
+# AH: Humedad absoluta
+#### ---------------------------------------------------------------------------
+#### ---------------------------------------------------------------------------
 
 # Buscamos la ruta del archivo y la guardamos en una variable
 ruta_csv <- file.choose()
