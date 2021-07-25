@@ -19,17 +19,33 @@ library(colortools)
 #### ---------------------------------------------------------------------------
 #### ---------------------------------------------------------------------------
 
-# Lectura de datos: Archivo dataset.csv
+# Lectura de datos: Archivo day.csv
 # La primera fila contiene los nombres de las columnas
 # Los datos estan separados por columnas
-# La primera columna identifica a la variable SystemCodeNumber
-# El archivo contiene 35717 filas
-# Las variables contienen informacion sobre la tasa de ocupacion de los aparcamientos
-# de Birmingham entre las 8:00 a las 16:30 del 2016/10/04 al 2016/12/19
-# Las variables registradas fueron: 
-# Numero de codigo del sistema: ID del aparcamiento 
-# Capacidad: Capacidad del aparcamiento
-# Ocupacion: Grado de ocupacion del aparacamiento
+# La primera columna identifica el indice de los registros
+# El archivo contiene 17389 filas
+# Las variables contienen informacion sobre el alquiler de bicicletas
+# instant: índice de registros
+# dteday : fecha
+# season : estación (1:invierno, 2:primavera, 3:verano, 4:otoño)
+# yr : año (0: 2011, 1:2012)
+# mnth : mes ( 1 a 12)
+# hr : hora (0 a 23)
+# holiday : si el día es festivo o no (extraído de [Web Link])
+# weekday : día de la semana
+# workingday : si el día no es ni fin de semana ni festivo es 1, en caso contrario es 0.
+# weathersit :
+#   1: Despejado, Pocas nubes, Parcialmente nublado, Parcialmente nublado
+#   2: Niebla + Nublado, Niebla + Nubes dispersas, Niebla + Pocas nubes, Niebla
+#   3: Nieve ligera, Lluvia ligera + Tormenta + Nubes dispersas, Lluvia ligera + Nubes dispersas
+#   4: Lluvia intensa + Paletas de hielo + Tormenta eléctrica + Nieve, Nieve + Niebla
+# temp : Temperatura normalizada en Celsius. Los valores se obtienen mediante (t-t_min)/(t_max-t_min), t_min=-8, t_max=+39 (sólo en escala horaria)
+# atemp: Temperatura de sensación normalizada en Celsius. Los valores se obtienen mediante (t-t_min)/(t_max-t_min), t_min=-16, t_max=+50 (sólo en escala horaria)
+# hum: Humedad normalizada. Los valores se dividen entre 100 (máximo)
+# windspeed: Velocidad del viento normalizada. Los valores se dividen entre 67 (máx.)
+# casual: recuento de usuarios ocasionales
+# registered: recuento de usuarios registrados
+# cnt: recuento del total de bicicletas de alquiler, incluyendo las casuales y las registradas
 
 
 # Buscamos la ruta del archivo y la guardamos en una variable
@@ -52,19 +68,15 @@ class(data$good_date)
 ### ----------------------------------------------------------------------------
 
 # Visualizacion de los datos de la serie de tiempo
-(time_plot <- ggplot(data, aes(x = good_date, y = casual)) +
+(time_plot <- ggplot(data, aes(x = good_date, y = registered)) +
    geom_line() +
    geom_smooth(formula = y ~ x, method = "loess", se = FALSE, span = 0.6) +
    theme_classic())
 # scale_x_date(date_labels = "%Y", date_breaks = "1 year") +
 
-# Creamos la serie de tiempo
-data_ts <- ts(data$casual, start=2011, end=2013, frequency=12)
+# Creamos el objeto de serie de tiempo
+data_ts <- ts(data$registered, start=2011, end=2013, frequency=12)
 data_ts
-
-# Validamos el objeto de la serie de tiempo
-#is.ts(data_ts)
-#plot(data_ts)
 
 # Descomponemos la serie haciendo uso de la funcion stl()
 data_stl <- stl(data_ts, s.window = "period")
@@ -74,8 +86,20 @@ plot(data_stl)  # top=original data, second=estimated seasonal, third=estimated 
 monthplot(data_stl)  # variation in milk production for each month
 seasonplot(data_stl)
 
+# ---------------------------------
 
+# Creamos el objeto de serie de tiempo
+data_ts <- ts(data$registered, start=2011, end=2013, frequency=12)
+data_ts
+
+# Validamos el objeto de la serie de tiempo
+is.ts(data_ts)
+plot(data_ts)
 
 # descomposiscion? 
-#descompose_data_ts <- decompose(data_ts, type = c("additive", "multiplicative"), filter = NULL)
-#plot(descompose_data_ts)
+descompose_data_ts <- decompose(data_ts, type = c("additive", "multiplicative"), filter = NULL)
+plot(descompose_data_ts)
+
+
+
+
