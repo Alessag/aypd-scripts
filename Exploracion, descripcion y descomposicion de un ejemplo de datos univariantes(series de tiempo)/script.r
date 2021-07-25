@@ -43,10 +43,6 @@ data <- read.csv(ruta_csv)
 head(data)
 
 # Vamos a corregir el formato de la fecha para poder usarlo
-#data$month_date <- as.Date(data$dteday, format = "%Y-%m-%u")
-#head(data$month_date)
-#class(data$month_date)
-
 data$good_date <- as.Date(data$dteday, format = "%Y-%m-%d")
 head(data$good_date)
 class(data$good_date)
@@ -55,13 +51,31 @@ class(data$good_date)
 ### DESCOMPOSICIÓN DEL ARCHIVO DE DATOS EN SERIES DE TIEMPO UNIVARIANTES ---
 ### ----------------------------------------------------------------------------
 
+# Visualizacion de los datos de la serie de tiempo
+(time_plot <- ggplot(data, aes(x = good_date, y = casual)) +
+   geom_line() +
+   geom_smooth(formula = y ~ x, method = "loess", se = FALSE, span = 0.6) +
+   theme_classic())
+# scale_x_date(date_labels = "%Y", date_breaks = "1 year") +
+
 # Creamos la serie de tiempo
-data_ts <- ts(data$Occupancy, start=1, end=646, frequency=24)
+data_ts <- ts(data$casual, start=2011, end=2013, frequency=12)
 data_ts
+
 # Validamos el objeto de la serie de tiempo
-is.ts(data_ts)
-plot(data_ts)
+#is.ts(data_ts)
+#plot(data_ts)
+
+# Descomponemos la serie haciendo uso de la funcion stl()
+data_stl <- stl(data_ts, s.window = "period")
+
+# Generate plots
+plot(data_stl)  # top=original data, second=estimated seasonal, third=estimated smooth trend, bottom=estimated irregular element i.e. unaccounted for variation
+monthplot(data_stl)  # variation in milk production for each month
+seasonplot(data_stl)
+
+
 
 # descomposiscion? 
-descompose_data_ts <- decompose(data_ts, type = c("additive", "multiplicative"), filter = NULL)
-plot(descompose_data_ts)
+#descompose_data_ts <- decompose(data_ts, type = c("additive", "multiplicative"), filter = NULL)
+#plot(descompose_data_ts)
