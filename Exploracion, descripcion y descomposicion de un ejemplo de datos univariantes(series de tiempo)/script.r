@@ -31,24 +31,27 @@ library(gapminder)
 # Buscamos la ruta del archivo y la guardamos en una variable
 ruta_csv <- file.choose()
 
-# Importar datos, los leemos, le asignamos un titulo a cada columna y los guardamos
-# en una variable llamada dataBalloons
-dataBalloons <- read.csv(ruta_csv,
-                        col.names = c('color',
-                                      'size',
-                                      'act',
-                                      'age',
-                                      'inflated'))
+# Importar datos, los leemos y los guardamos
+# en una variable llamada data
+data <- read.csv(ruta_csv)
 
 # Miramos los datos 
-head(dataBalloons)
+head(data)
 
-#Generamos la tabla agrupada para la variable: Inflados
-table(dataBalloons$inflated)
+### ----------------------------------------------------------------------------
+### DESCOMPOSICIÓN DEL ARCHIVO DE DATOS EN SERIES DE TIEMPO UNIVARIANTES ---
+### ----------------------------------------------------------------------------
 
-#Graficamos en un diagrama de barras basicas 
-barplot(table(dataBalloons$inflated))
+frecuencia <- 12;
+comienzo <- 2016;
+fin <- 2016;
+# Creamos la serie de tiempo
+ocupancy_ts <- ts(data$Occupancy, start=1, end=646, frequency=24)
+ocupancy_ts
+# Validamos el objeto de la serie de tiempo
+is.ts(ocupancy_ts)
+plot(ocupancy_ts)
 
-# Lo que podemos observar en el grafico es que hay 
-# mayor cantidad de globos desinflados que inflados
-
+# descomposiscion? 
+descompose_occupancy_ts <- decompose(ocupancy_ts, type = c("additive", "multiplicative"), filter = NULL)
+plot(descompose_occupancy_ts)
