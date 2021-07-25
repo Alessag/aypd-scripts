@@ -84,20 +84,6 @@ plot(data_stl)  # top=original data, second=estimated seasonal, third=estimated 
 monthplot(data_stl)  # variation in milk production for each month
 #seasonplot(data_stl)
 
-# ---------------------------------
-
-# Creamos el objeto de serie de tiempo
-data_ts <- ts(data$registered, start=2011, end=2013, frequency=12)
-data_ts
-
-# Validamos el objeto de la serie de tiempo
-is.ts(data_ts)
-plot(data_ts)
-
-# descomposiscion? 
-descompose_data_ts <- decompose(data_ts, type = c("additive", "multiplicative"), filter = NULL)
-plot(descompose_data_ts)
-
 
 
 
