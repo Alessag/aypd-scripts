@@ -84,8 +84,11 @@ data_stl <- stl(data_ts, s.window = "period")
 plot(data_stl) 
 monthplot(data_stl)
 
-# Estacionaridad 
-
+# Estacionaridad de la serie de tiempo
+# Para evaluar si nuestra serie de tiempo es estacionario o no va a ser de gran ayuda
+# poder graficar la funcion de autocorrelacion
 acf(data_ts)
+# En la grafica de autocorrelacion podemos observar que la funcion de 
+# autocorrelacion nos dice que la serie de tiempo si es estacionaria
 
 
