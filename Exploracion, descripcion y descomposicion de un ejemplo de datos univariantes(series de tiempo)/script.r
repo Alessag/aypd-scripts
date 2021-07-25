@@ -42,16 +42,13 @@ head(data)
 ### DESCOMPOSICIÓN DEL ARCHIVO DE DATOS EN SERIES DE TIEMPO UNIVARIANTES ---
 ### ----------------------------------------------------------------------------
 
-frecuencia <- 12;
-comienzo <- 2016;
-fin <- 2016;
 # Creamos la serie de tiempo
-ocupancy_ts <- ts(data$Occupancy, start=1, end=646, frequency=24)
-ocupancy_ts
+data_ts <- ts(data$Occupancy, start=1, end=646, frequency=24)
+data_ts
 # Validamos el objeto de la serie de tiempo
-is.ts(ocupancy_ts)
-plot(ocupancy_ts)
+is.ts(data_ts)
+plot(data_ts)
 
 # descomposiscion? 
-descompose_occupancy_ts <- decompose(ocupancy_ts, type = c("additive", "multiplicative"), filter = NULL)
-plot(descompose_occupancy_ts)
+descompose_data_ts <- decompose(data_ts, type = c("additive", "multiplicative"), filter = NULL)
+plot(descompose_data_ts)
