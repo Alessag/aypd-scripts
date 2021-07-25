@@ -11,6 +11,10 @@
  
 library(readr)
 library(gapminder)
+library(ggplot2)
+library(forecast)
+library(dplyr)
+library(colortools)
 
 #### ---------------------------------------------------------------------------
 #### ---------------------------------------------------------------------------
@@ -37,6 +41,15 @@ data <- read.csv(ruta_csv)
 
 # Miramos los datos 
 head(data)
+
+# Vamos a corregir el formato de la fecha para poder usarlo
+#data$month_date <- as.Date(data$dteday, format = "%Y-%m-%u")
+#head(data$month_date)
+#class(data$month_date)
+
+data$good_date <- as.Date(data$dteday, format = "%Y-%m-%d")
+head(data$good_date)
+class(data$good_date)
 
 ### ----------------------------------------------------------------------------
 ### DESCOMPOSICIÓN DEL ARCHIVO DE DATOS EN SERIES DE TIEMPO UNIVARIANTES ---
