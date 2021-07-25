@@ -51,8 +51,7 @@ library(colortools)
 # Buscamos la ruta del archivo y la guardamos en una variable
 ruta_csv <- file.choose()
 
-# Importar datos, los leemos y los guardamos
-# en una variable llamada data
+# Importar datos, los leemos y los guardamos en una variable llamada data
 data <- read.csv(ruta_csv)
 
 # Miramos los datos 
@@ -72,19 +71,18 @@ class(data$good_date)
    geom_line() +
    geom_smooth(formula = y ~ x, method = "loess", se = FALSE, span = 0.6) +
    theme_classic())
-# scale_x_date(date_labels = "%Y", date_breaks = "1 year") +
 
-# Creamos el objeto de serie de tiempo
+# Creamos el objeto de serie de tiempo y lo visualizamos
 data_ts <- ts(data$registered, start=2011, end=2013, frequency=12)
 data_ts
 
 # Descomponemos la serie haciendo uso de la funcion stl()
 data_stl <- stl(data_ts, s.window = "period")
 
-# Generate plots
+# Generamos las graficas
 plot(data_stl)  # top=original data, second=estimated seasonal, third=estimated smooth trend, bottom=estimated irregular element i.e. unaccounted for variation
 monthplot(data_stl)  # variation in milk production for each month
-seasonplot(data_stl)
+#seasonplot(data_stl)
 
 # ---------------------------------
 
