@@ -16,6 +16,7 @@ library(forecast)
 library(dplyr)
 library(colortools)
 library(tseries)
+library(readxl)
 
 #### ---------------------------------------------------------------------------
 #### ---------------------------------------------------------------------------
@@ -53,13 +54,14 @@ library(tseries)
 ruta_csv <- file.choose()
 
 # Importar datos, los leemos y los guardamos en una variable llamada data
-data <- read.csv(ruta_csv)
+dataset <- read_excel(ruta_csv)
 
 # Miramos los datos 
-head(data)
+head(dataset)
+View(dataset)
 
 # Vamos a corregir el formato de la fecha para poder usarlo
-data$good_date <- as.Date(data$dteday, format = "%Y-%m-%d")
+data$good_date <- as.Date(data$Date, format = "%d-%m-%Y")
 head(data$good_date)
 class(data$good_date)
 
