@@ -83,7 +83,6 @@ data_stl <- stl(data_ts, s.window = "period")
 # Generamos las graficas
 plot(data_stl) 
 monthplot(data_stl)
-#seasonplot(data_stl)
 
 # Estacionaridad 
 
