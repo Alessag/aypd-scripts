@@ -61,36 +61,39 @@ head(dataset)
 View(dataset)
 
 # Vamos a corregir el formato de la fecha para poder usarlo
-data$good_date <- as.Date(data$Date, format = "%d-%m-%Y")
-head(data$good_date)
-class(data$good_date)
+dataset$good_date <- as.Date(dataset$Date, format = "%Y-%m-%d")
+head(dataset$good_date)
+class(dataset$good_date)
 
 ### ----------------------------------------------------------------------------
 ### DESCOMPOSICIÓN DEL ARCHIVO DE DATOS EN SERIES DE TIEMPO UNIVARIANTES ---
 ### ----------------------------------------------------------------------------
 
 # Visualizacion de los datos de la serie de tiempo
-(time_plot <- ggplot(data, aes(x = good_date, y = registered)) +
+(time_plot <- ggplot(dataset, aes(x = good_date, y = `C6H6(GT)`)) +
    geom_line() +
    geom_smooth(formula = y ~ x, method = "loess", se = FALSE, span = 0.6) +
    theme_classic())
 
 # Creamos el objeto de serie de tiempo y lo visualizamos
-data_ts <- ts(data$registered, start=2011, end=2013, frequency=12)
+data_ts <- ts(dataset$`C6H6(GT)`, start=1, end= 12,  frequency=12)
 data_ts
 
 # Descomponemos la serie haciendo uso de la funcion stl()
 data_stl <- stl(data_ts, s.window = "period")
 
-# Generamos las graficas
+# Generamos las graficas de la serie de tiempo descompuesta
 plot(data_stl) 
 monthplot(data_stl)
 
 # Estacionaridad de la serie de tiempo
-# Para evaluar si nuestra serie de tiempo es estacionario o no va a ser de gran ayuda
+
+# Para evaluar si nuestra serie de tiempo es estacionario o nos va a ser de gran ayuda
 # poder graficar la funcion de autocorrelacion
+
+# Grafica de autocorrelacion
 acf(data_ts)
+
 # En la grafica de autocorrelacion podemos observar que la funcion de 
-# autocorrelacion nos dice que la serie de tiempo si es estacionaria
-
-
+# autocorrelacion nos dice que la serie de tiempo es estacionaria
+# ya que la media y la varianza son constantes a lo largo del tiempo
