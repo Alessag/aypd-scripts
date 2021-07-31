@@ -1,5 +1,5 @@
 #### ---------------------------------------------------------------------------
-#### TEMA 1. Introducción al procesamiento de datos univariantes y multivariantes
+#### TEMA. Introducción al procesamiento de datos univariantes y multivariantes
 #### Implementación de un algoritmo de clustering
 
 #### REALIZADO POR: Alessandra Amicarella Girardi, V-26.209.731
@@ -48,14 +48,69 @@ dataHabermarn <- read.csv(ruta_csv,
 )
 
 # Miramos los datos 
-head(dataBalloons)
+head(dataHabermarn)
 
-#Generamos la tabla agrupada para la variable: Inflados
-table(dataBalloons$inflated)
+#Vamos a normalizar las puntuaciones
+dataHabermarn <- scale(dataHabermarn)
+head(dataHabermarn)
 
-#Graficamos en un diagrama de barras basicas 
-barplot(table(dataBalloons$inflated))
+# Calcularemos la matriz de distacias(Metodo euclideano)
+m.distancia <- get_dist(dataHabermarn, method = "euclidean") #el método aceptado también puede ser: "maximum", "manhattan", "canberra", "binary", "minkowski", "pearson", "spearman" o "kendall"
+fviz_dist(m.distancia, gradient = list(low = "blue", mid = "white", high = "red"))
 
-# Lo que podemos observar en el grafico es que hay 
-# mayor cantidad de globos desinflados que inflados
+# Estimamos el número de clústers
+# Elbow, silhouette o gap_stat  method
+fviz_nbclust(df, kmeans, method = "wss")
+fviz_nbclust(df, kmeans, method = "silhouette")
+fviz_nbclust(df, kmeans, method = "gap_stat")
 
+resnumclust<-NbClust(df, distance = "euclidean", min.nc=2, max.nc=10, method = "kmeans", index = "alllong")
+fviz_nbclust(resnumclust)
+
+#calculamos los dos clústers
+k2 <- kmeans(df, centers = 2, nstart = 25)
+k2
+str(k2)
+
+# Graficamos los cluster
+fviz_cluster(k2, data = df)
+fviz_cluster(k2, data = df, ellipse.type = "euclid",repel = TRUE,star.plot = TRUE) #ellipse.type= "t", "norm", "euclid"
+fviz_cluster(k2, data = df, ellipse.type = "norm")
+fviz_cluster(k2, data = df, ellipse.type = "norm",palette = "Set2", ggtheme = theme_minimal())
+
+res2 <- hcut(df, k = 2, stand = TRUE)
+fviz_dend(res2, rect = TRUE, cex = 0.5,
+          k_colors = c("red","#2E9FDF"))
+
+res4 <- hcut(df, k = 4, stand = TRUE)
+fviz_dend(res4, rect = TRUE, cex = 0.5,
+          k_colors = c("red","#2E9FDF","green","black"))
+
+# Pasaremos los cluster a mi df inicial para trabajar con ellos
+
+USArrests %>%
+  mutate(Cluster = k2$cluster) %>%
+  group_by(Cluster) %>%
+  summarise_all("mean")
+
+df <- USArrests
+df
+df$clus<-as.factor(k2$cluster)
+df
+
+df <- USArrests
+df <- scale(df)
+df<- as.data.frame(df)
+df$clus<-as.factor(k2$cluster)
+df
+
+df$clus<-factor(df$clus)
+data_long <- gather(df, caracteristica, valor, Murder:Rape, factor_key=TRUE)
+data_long
+
+# 
+
+ggplot(data_long, aes(as.factor(x = caracteristica), y = valor,group=clus, colour = clus)) + 
+  stat_summary(fun = mean, geom="pointrange", size = 1)+
+  stat_summary(geom="line")
+#geom_point(aes(shape=clus))
