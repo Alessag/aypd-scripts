@@ -1,5 +1,5 @@
 #### ---------------------------------------------------------------------------
-#### TEMA 1. Introducción al procesamiento de datos
+#### TEMA 3. Introducción al aprendizaje automático
 #### EXPLORACION Y DESCRIPCION DE DATOS CUANTITATIVOS
 
 #### REALIZADO POR: Alessandra Amicarella Girardi, V-26.209.731
