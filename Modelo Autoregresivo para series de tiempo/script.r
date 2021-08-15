@@ -1,6 +1,6 @@
 #### ---------------------------------------------------------------------------
 #### TEMA Introduccion al procesamiento de datos univariantes y multivariantes
-#### EXPLORACION, DESCRIPCION Y DESCOMPOSICION DE DATOS UNIVARIANTES
+#### IMPLEMENTAR UN MODELO AUTORREGRESIVO PARA SERIES DE TIEMPO
 
 #### REALIZADO POR: Alessandra Amicarella Girardi, V-26.209.731
 
@@ -72,9 +72,11 @@ class(dataset$good_date)
    geom_smooth(formula = y ~ x, method = "loess", se = FALSE, span = 0.6) +
    theme_classic())
 
+
 # Creamos el objeto de serie de tiempo y lo visualizamos
 data_ts <- ts(dataset$`C6H6(GT)`, start=1, end= 12,  frequency=12)
 data_ts
+plot(data_ts, main="C6H5", col="blue")
 
 # Descomponemos la serie haciendo uso de la funcion stl()
 data_stl <- stl(data_ts, s.window = "period")
@@ -83,14 +85,15 @@ data_stl <- stl(data_ts, s.window = "period")
 plot(data_stl) 
 monthplot(data_stl)
 
-# Estacionaridad de la serie de tiempo
+# Modelo autoregresivo para predicciones
+ajuste <- auto.arima(y = data_ts)
+summary(ajuste)
 
-# Para evaluar si nuestra serie de tiempo es estacionario o nos va a ser de gran ayuda
-# poder graficar la funcion de autocorrelacion
-
-# Grafica de autocorrelacion
-acf(data_ts)
-
-# En la grafica de autocorrelacion podemos observar que la funcion de 
-# autocorrelacion nos dice que la serie de tiempo es estacionaria
-# ya que la media y la varianza son constantes a lo largo del tiempo
+# Graficamos las predicciones
+predicciones <- forecast(ajuste)
+p_predict <- autoplot(predicciones)
+p_predict
+# Como podemos observar en la grafica, tenemos una linea de color azul que 
+# seria el valor promedio estimado para la concentración de benceno de media 
+# horaria real en microg/m^3, aunque el valor real o con mayor probabilidad 
+# es el que se encuentra entre los intervalos morados

@@ -58,59 +58,48 @@ head(dataHabermarn)
 m.distancia <- get_dist(dataHabermarn, method = "euclidean") #el método aceptado también puede ser: "maximum", "manhattan", "canberra", "binary", "minkowski", "pearson", "spearman" o "kendall"
 fviz_dist(m.distancia, gradient = list(low = "blue", mid = "white", high = "red"))
 
-# Estimamos el número de clústers
-# Elbow, silhouette o gap_stat  method
-fviz_nbclust(df, kmeans, method = "wss")
-fviz_nbclust(df, kmeans, method = "silhouette")
-fviz_nbclust(df, kmeans, method = "gap_stat")
+# Estimamos el numero de clusters
+fviz_nbclust(dataHabermarn, kmeans, method = "silhouette")
 
-resnumclust<-NbClust(df, distance = "euclidean", min.nc=2, max.nc=10, method = "kmeans", index = "alllong")
-fviz_nbclust(resnumclust)
+# Como podemos observar en la grafica del numero optimo de clusters, Rstudio nos
+# esta sugiriendo que debemos crear dos clusters
 
-#calculamos los dos clústers
-k2 <- kmeans(df, centers = 2, nstart = 25)
+# resnumclust<-NbClust(dataHabermarn, distance = "euclidean", min.nc=2, max.nc=10, method = "kmeans", index = "alllong")
+# fviz_nbclust(resnumclust)
+
+# Calculamos los dos clousters
+k2 <- kmeans(dataHabermarn, centers = 2, nstart = 25)
 k2
 str(k2)
 
-# Graficamos los cluster
-fviz_cluster(k2, data = df)
-fviz_cluster(k2, data = df, ellipse.type = "euclid",repel = TRUE,star.plot = TRUE) #ellipse.type= "t", "norm", "euclid"
-fviz_cluster(k2, data = df, ellipse.type = "norm")
-fviz_cluster(k2, data = df, ellipse.type = "norm",palette = "Set2", ggtheme = theme_minimal())
+# Graficamos los dos cluster con el tipo de elipse eclida y tambien le decimos 
+# y que nos marque la distancia respecto a los centroides y marque el centroide 
+fviz_cluster(k2, data = dataHabermarn, ellipse.type = "euclid",repel = TRUE,star.plot = TRUE) #ellipse.type= "t", "norm", "euclid"
 
-res2 <- hcut(df, k = 2, stand = TRUE)
-fviz_dend(res2, rect = TRUE, cex = 0.5,
-          k_colors = c("red","#2E9FDF"))
 
-res4 <- hcut(df, k = 4, stand = TRUE)
-fviz_dend(res4, rect = TRUE, cex = 0.5,
-          k_colors = c("red","#2E9FDF","green","black"))
-
-# Pasaremos los cluster a mi df inicial para trabajar con ellos
-
-USArrests %>%
-  mutate(Cluster = k2$cluster) %>%
+# Pasaremos los cluster a mi dataHabermarn original para trabajar con ellos
+as.data.frame(dataHabermarn) %>%
+  mutate( Cluster = k2$cluster) %>%
   group_by(Cluster) %>%
   summarise_all("mean")
 
-df <- USArrests
-df
-df$clus<-as.factor(k2$cluster)
-df
+# Volvemos a llamar al dataset original y le decimos ponga el cluster como un factor dentro 
+# del dataframe data_haberman y por ultimo graficamos 
+data_haberman <- dataHabermarn
+data_haberman
+data_haberman$clus<-as.factor(k2$cluster)
+data_haberman
 
-df <- USArrests
-df <- scale(df)
-df<- as.data.frame(df)
-df$clus<-as.factor(k2$cluster)
-df
+data_haberman <- dataHabermarn
+data_haberman <- scale(dataHabermarn)
+data_haberman<- as.data.frame(dataHabermarn)
+data_haberman$clus<-as.factor(k2$cluster)
+data_haberman
 
-df$clus<-factor(df$clus)
-data_long <- gather(df, caracteristica, valor, Murder:Rape, factor_key=TRUE)
+data_haberman$clus<-factor(data_haberman$clus)
+data_long <- gather(data_haberman, caracteristica, valor, age_of_operation:survival_status, factor_key=TRUE)
 data_long
-
-# 
 
 ggplot(data_long, aes(as.factor(x = caracteristica), y = valor,group=clus, colour = clus)) + 
   stat_summary(fun = mean, geom="pointrange", size = 1)+
   stat_summary(geom="line")
-#geom_point(aes(shape=clus))
