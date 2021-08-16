@@ -44,12 +44,6 @@ dataBalloons <- read.csv(ruta_csv,
 # Miramos los datos 
 head(dataBalloons)
 
-#Generamos la tabla agrupada para la variable: Inflados
-table(dataBalloons$inflated)
-
-#Graficamos en un diagrama de barras basicas 
-barplot(table(dataBalloons$inflated))
-
-# Lo que podemos observar en el grafico es que hay 
-# mayor cantidad de globos desinflados que inflados
+# Lo que queremos clasificar va a ir en la "y" po rejemplo la calidad del vino 
+# En "x" van las caracteristicas que nos van a permitir hacer esa clasificacion 
 
