@@ -11,6 +11,7 @@
  
 library(readr)
 library(gapminder)
+library(e1071)
 
 #### ---------------------------------------------------------------------------
 #### ---------------------------------------------------------------------------
@@ -34,15 +35,26 @@ ruta_csv <- file.choose()
 
 # Importar datos, los leemos, le asignamos un titulo a cada columna y los guardamos
 # en una variable llamada dataBalloons
-dataBalloons <- read.csv(ruta_csv,
-                        col.names = c('color',
-                                      'size',
-                                      'act',
-                                      'age',
-                                      'inflated'))
+
+# sepal length in cm
+#2. sepal width in cm
+#3. petal length in cm
+#4. petal width in cm
+#5. class:
+#  -- Iris Setosa
+#-- Iris Versicolour
+#-- Iris Virginica
+
+iris_data <- read.csv(ruta_csv,
+                        col.names = c(
+                          'sepal_length',
+                          'sepal_width',
+                          'petal_length',
+                                      'petal_width',
+                                      'class'))
 
 # Miramos los datos 
-head(dataBalloons)
+head(iris_data)
 
 # Lo que queremos clasificar va a ir en la "y" po rejemplo la calidad del vino 
 # En "x" van las caracteristicas que nos van a permitir hacer esa clasificacion 
