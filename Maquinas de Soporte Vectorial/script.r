@@ -68,7 +68,7 @@ class(iris_data$species)
 
 # SVM 
 svm_model <- svm(species ~ . , data=iris_data)
-
+summary(svm_model)
 
 # Lo que queremos clasificar va a ir en la "y" po rejemplo la calidad del vino 
 # En "x" van las caracteristicas que nos van a permitir hacer esa clasificacion 
