@@ -59,6 +59,17 @@ head(iris_data)
 # iris_data
 # str(iris_data)
 qplot(petal_length, petal_width, data=iris_data, color=species)
+# este es de tipo character
+class(iris_data$species)
+
+# lo pasamos a tipo factor
+iris_data$species <- as.factor(iris_data$species)
+class(iris_data$species)
+
+# SVM 
+svm_model <- svm(species ~ . , data=iris_data)
+
+
 # Lo que queremos clasificar va a ir en la "y" po rejemplo la calidad del vino 
 # En "x" van las caracteristicas que nos van a permitir hacer esa clasificacion 
 
