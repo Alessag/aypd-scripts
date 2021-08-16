@@ -12,6 +12,7 @@
 library(readr)
 library(gapminder)
 library(e1071)
+library(ggplot2)
 
 #### ---------------------------------------------------------------------------
 #### ---------------------------------------------------------------------------
@@ -46,16 +47,18 @@ ruta_csv <- file.choose()
 #-- Iris Virginica
 
 iris_data <- read.csv(ruta_csv,
-                        col.names = c(
-                          'sepal_length',
-                          'sepal_width',
-                          'petal_length',
+                        col.names = c('sepal_length',
+                                      'sepal_width',
+                                      'petal_length',
                                       'petal_width',
-                                      'class'))
+                                      'species'))
 
 # Miramos los datos 
 head(iris_data)
-
+# plot(iris_data)
+# iris_data
+# str(iris_data)
+qplot(petal_length, petal_width, data=iris_data, color=species)
 # Lo que queremos clasificar va a ir en la "y" po rejemplo la calidad del vino 
 # En "x" van las caracteristicas que nos van a permitir hacer esa clasificacion 
 
